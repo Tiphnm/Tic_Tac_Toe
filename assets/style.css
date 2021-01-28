@@ -4,3 +4,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.module {
+  text-align: center;
+  max-width: 80%;
+  margin: auto;
+  background-color: cornflowerblue;
+}
