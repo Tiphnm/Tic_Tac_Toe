@@ -11,33 +11,40 @@
         <h1>Tic - Tac - Toe</h1>
         <br />
         <h2>RULES FOR TIC-TAC-TOE</h2>
+        <br>
         <ul>
-          <li>1. The game is played on a grid that's 3 squares</li>
-          by 3 squares.
           <li>
-            2. You are X, your friend (or the computer in this case) is O.
+            The game is played on a grid that's 3 squares by 3 squares.
+          </li>
+          
+          <li>
+            You are X, your friend (or the computer in this case) is O.
             Players take turns putting their marks in empty squares.
           </li>
 
           <li>
-            3. The first player to get 3 of her marks in a row (up, down,
+            The first player to get 3 of her marks in a row (up, down,
             across, or diagonally) is the winner. 4. When all 9 squares are
             full, the game is over. If no player has 3 marks in a row, the game
             ends in a tie.
           </li>
-
-          <form action="/game.html">
+        </ul>
+          <form>
             <br />
-            <label for="player1"> Name: Player 1 </label>
-            <input type="text" name="player1" id="" />
+            <label for="player1">Player with X : </label>
+            <input type="text" name="player1" id="" placeholder="Your name" />
+            <button type ="button">Play!</button>
             <br />
-            <label for="player2">Name player 2</label>
-            <input type="text" name="player2" id="" />
+            <label for="player2">Player with O : </label>
+            <input type="text" name="player2" id="" placeholder="Your name" />
+            <button type ="button">Play!</button>
             <br />
             <button class="play">Game</button>
           </form>
-        </ul>
+        <br>
+       <footer> Copyright Carina & Jojo & Tiphaine </footer>
       </div>
+    </div>
     </div>
   </body>
 </html>
