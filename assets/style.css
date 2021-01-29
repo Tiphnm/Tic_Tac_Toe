@@ -7,31 +7,46 @@
   box-sizing: border-box;
 }
 /* Welcome part */
+
+body 
+{
+  background-image: url("/assets/img/background.jpg")
+}
+
+
 .module {
   color: white;
   text-align: center;
   max-width: 75%;
+  padding: 1rem;
+  background-color: rgba(250, 250, 250, 0.904);
+  border-radius: 16px;
+  max-width: 80%;
   margin: auto;
-  background-color: black;
+  margin-top: 150px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 
 h1{
-  font-family: "Fredoka One", cursive;
-  
-  color: white;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
+  font-weight: bold;
 }
 
 h2{
-  font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: white;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
   font-weight: bold;
 }
 
 ul{
 flex: display; 
-font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-color: rgb(23, 39, 35); 
-background-color: rgba(98, 197, 184, 0.616);
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+color: rgb(43, 8, 66);
+background-color: rgba(255, 216, 41, 0.616);
 list-style-position: inside; 
 text-align: left; 
 border-radius: 16px;
@@ -41,48 +56,65 @@ margin-right: auto;
 margin-left: auto;
 padding-right: 20px;
 padding-left: 20px;
+padding: 1rem;
+
 }
+
+label{
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  font-weight: bold;
+  color: rgb(43, 8, 66);
+}
+
 
 input
 {
-font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-border: 2px solid rgb(146, 187, 177);
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+border: 2px solid rgba(43, 8, 66, 0.842);
 border-radius: 4px;
-background-color : white; 
+background-color : rgba(43, 8, 66, 0.267); 
 opacity: 0.5;
-color: rgb(80, 105, 84);
+color: rgb(43, 8, 66);
 font-size: 14px;
+margin-top: 5px;
 }
 
 button 
 {
-font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-border: 2px solid rgb(146, 187, 177);
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+border: 2px rgba(43, 8, 66, 0.842);
 border-radius: 4px;
-background-color : white; 
-opacity: 0.5;
-color: rgb(80, 105, 84);
+background-color : rgba(43, 8, 66, 0.267); 
+opacity: 1;
+color: rgb(43, 8, 66);
 font-size: 14px;
+padding: 2px;
+
   
 }
 
-
 footer{
-font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-color: white;
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+font-weight: bold;
+color: rgb(43, 8, 66);
 }
 
 form{
 text-align: center;
-font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
 }
 
 .play {
-  display: flex;
-  flex-direction: row;
-  margin-top: 2rem;
-  background-color: red;
-  padding: 2rem;
+margin: 0 auto;
+padding: 1rem;
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+font-weight: bold;
+border-radius: 4px;
+border: solid  rgb(197, 0, 82) ;
+background-color :  rgb(197, 0, 82); 
+color: white;
+font-size: 20px;
+
 }
 
 /* GAME PART  */
@@ -152,8 +184,3 @@ font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     opacity: 0;
   }
 }
-label{
-  font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: white;
-}
-
