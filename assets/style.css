@@ -7,27 +7,12 @@
   box-sizing: border-box;
 }
 /* Welcome part */
-<<<<<<< HEAD
 .module {
   color: white;
   text-align: center;
   max-width: 75%;
   margin: auto;
   background-color: black;
-=======
-
-  
-.module {
-  
-border-radius: 16px;
-text-align: center;
-max-width: 80%;
-margin: auto;
-background-color: rgb(68, 151, 140);
-margin-right: auto;
-margin-left: auto;
-padding-right: 20px;
-padding-left: 20px;
 }
 
 h1{
@@ -90,7 +75,6 @@ color: white;
 form{
 text-align: center;
 font-family: 'Didot', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
->>>>>>> 520c7ba (Style de ma page d'accueil)
 }
 
 .play {
