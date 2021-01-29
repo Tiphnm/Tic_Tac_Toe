@@ -1,36 +1,48 @@
 ////////////  GAME ZONE  ////////////////
-function $(element) {
-  return document.querySelector(element);
-}
-let gameTable = $(".gametable");
+
 let elements = document.querySelectorAll(".element");
 let n = Math.floor(Math.random() * 10);
 let player_1 = false;
-let who_play = "";
 var gameIsOn = true;
+
 // audio objs
 player_x = new Audio("./assets/audio/xplayer.mp3");
 player_o = new Audio("./assets/audio/oplayer.mp3");
 
-for (const element of elements) {
-  element.addEventListener("click", (e) => {
-    let value = element.querySelector("span");
-    if (value.innerText == "") {
-      if (!player_1) {
-        value.classList.add("animation");
-        value.innerText = "X";
-        player_x.play();
-        player_1 = true;
-        is_winner();
-      } else {
-        value.classList.add("animation");
-        value.innerText = "O";
-        player_1 = false;
-        player_o.play();
-        is_winner();
-      }
+if (gameIsOn) {
+  init_event();
+}
+
+function init_event() {
+  for (const element of elements) {
+    element.addEventListener("click", ticTacToe, false);
+  }
+}
+
+function ticTacToe(input) {
+  let value = input.target.querySelector("span");
+  console.log(value);
+  if (value.innerText == "") {
+    if (!player_1) {
+      value.classList.add("animation");
+      value.innerText = "X";
+      player_x.play();
+      player_1 = true;
+    } else {
+      value.classList.add("animation");
+      value.innerText = "O";
+      player_1 = false;
+      player_o.play();
     }
-  });
+    is_winner();
+  }
+  console.log(gameIsOn);
+}
+
+function kill_event() {
+  for (const element of elements) {
+    element.removeEventListener("click", ticTacToe, { capture: false });
+  }
 }
 
 function cell(n) {
@@ -39,25 +51,39 @@ function cell(n) {
 
 function is_winner() {
   let winning_combinations = [
-    [cell(0), cell(1), cell(2)],
-    [cell(3), cell(4), cell(5)],
-    [cell(6), cell(7), cell(8)],
-    [cell(0), cell(3), cell(6)],
-    [cell(1), cell(4), cell(7)],
-    [cell(2), cell(5), cell(8)],
-    [cell(0), cell(4), cell(8)],
-    [cell(6), cell(4), cell(2)],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2],
   ];
+
   let player_x = ["X", "X", "X"];
   let player_o = ["O", "O", "O"];
+
   winning_combinations.forEach((combination) => {
-    if (arraysEqual(combination, player_x)) {
-      print_winner();
+    winning_cells = [
+      cell(combination[0]),
+      cell(combination[1]),
+      cell(combination[2]),
+    ];
+    if (arraysEqual(winning_cells, player_x)) {
+      // alert("win");
+      print_winner(combination, "x");
+      // KILL THE EVENT
+      return true;
     }
-    if (arraysEqual(combination, player_o)) {
+    if (arraysEqual(winning_cells, player_o)) {
+      print_winner(combination, "o");
       alert("win");
+      return true;
     }
   });
+
+  return false;
 }
 
 function arraysEqual(a, b) {
@@ -68,14 +94,18 @@ function arraysEqual(a, b) {
   }
 }
 
-function print_winner() {
-  elements.forEach((element) => {
-    let player = element.querySelector("span");
-    if (player.innerText == "X") {
-      player.classList.add("rouge");
-    }
-  });
+function print_winner(winnerArray, symbol) {
+  for (i = 0; i < 3; i++) {
+    elements[winnerArray[i]].classList.add("rouge");
+  }
+  gameIsOn = false;
+  kill_event();
+  let my_div = document.querySelector(".winner");
+  let my_p = document.createElement("p");
+  my_p.innerText = "The winner is " + symbol;
+  my_div.appendChild(my_p);
 }
+
 /* function computer_turn() {
   let n = Math.floor(Math.random() * 10);
   console.log(elements[n]);
