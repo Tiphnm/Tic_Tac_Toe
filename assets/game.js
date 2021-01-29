@@ -1,10 +1,18 @@
 ////////////  GAME ZONE  ////////////////
 
-let elements = document.querySelectorAll(".element");
-let n = Math.floor(Math.random() * 10);
+const elements = document.querySelectorAll(".element");
 let player_1 = false;
 var gameIsOn = true;
-
+const winning_combinations = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [6, 4, 2],
+];
 // audio objs
 player_x = new Audio("./assets/audio/xplayer.mp3");
 player_o = new Audio("./assets/audio/oplayer.mp3");
@@ -15,7 +23,7 @@ if (gameIsOn) {
 
 function init_event() {
   for (const element of elements) {
-    element.addEventListener("click", ticTacToe, false);
+    element.addEventListener("click", ticTacToe_solo, false);
   }
 }
 
@@ -39,6 +47,60 @@ function ticTacToe(input) {
   console.log(gameIsOn);
 }
 
+function ticTacToe_solo(input) {
+  let value = input.target.querySelector("span");
+  console.log(input.target.id);
+  if (value.innerText == "") {
+    if (!player_1) {
+      value.classList.add("animation");
+      value.innerText = "X";
+      player_x.play();
+      player_1 = true;
+    }
+
+    if (player_1) {
+      // the player has played what?
+      let player_move = parseInt(input.target.id);
+      // what combinations are related to that move
+      let iaCombinations = winning_combinations.filter((combination) => {
+        return combination.includes(player_move);
+      });
+      // now we have all the N posible combinations for the
+      // player if he wants to win
+      let numberOfCombinations = iaCombinations.length;
+      console.log(iaCombinations);
+      // seven winning combinations
+      let n = Math.floor(Math.random() * 7);
+      //console.log(winning_combinations[n]);
+      let combination = winning_combinations[n];
+      // select one of them ex: 0,4,8
+      //console.log(combination);
+      while (player_1) {
+        if (cell(combination[0]) == "") {
+          elements[combination[0]].querySelector("span").innerText = "O";
+          player_1 = false;
+        } else if (cell(combination[1]) == "") {
+          elements[combination[1]].querySelector("span").innerText = "O";
+          player_1 = false;
+        } else if (cell(combination[2]) == "") {
+          elements[combination[0]].querySelector("span").innerText = "O";
+          player_1 = false;
+        } else {
+          n = Math.floor(Math.random() * 7);
+        }
+      }
+    }
+    /* else {
+       value.classList.add("animation");
+      value.innerText = "O";
+      player_1 = false;
+      player_o.play(); 
+    } */
+    is_winner();
+  }
+  // console.log(gameIsOn);
+}
+
 function kill_event() {
   for (const element of elements) {
     element.removeEventListener("click", ticTacToe, { capture: false });
@@ -50,17 +112,6 @@ function cell(n) {
 }
 
 function is_winner() {
-  let winning_combinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [6, 4, 2],
-  ];
-
   let player_x = ["X", "X", "X"];
   let player_o = ["O", "O", "O"];
 
@@ -122,3 +173,7 @@ function print_winner(winnerArray, symbol) {
 } */
 
 //////////// END OF  GAME ZONE  ////////////////
+
+/// GAMERS FORM ////
+
+//btnPlay = document.querySelector();
