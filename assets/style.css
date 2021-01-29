@@ -1,17 +1,18 @@
 /* Reset CSS * = all */
 
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 /* Welcome part */
-
 .module {
+  color: white;
   text-align: center;
-  max-width: 80%;
+  max-width: 75%;
   margin: auto;
-  background-color: cornflowerblue;
+  background-color: black;
 }
 
 .play {
@@ -24,21 +25,68 @@
 
 /* GAME PART  */
 .game {
+  font-family: "Fredoka One", cursive;
+  font-size: 7rem;
   display: flex;
+  flex: 1;
+  justify-content: center;
 }
 .gametable {
-  flex: 1;
+  background-color: white;
   text-align: center;
   border: 1px solid;
   padding: 0.5rem;
   margin: 5rem;
+  border-style: outset;
+  table-layout: fixed;
 }
 .row-element {
+  border-top: none;
   margin: 1rem;
   height: 10rem;
 }
 .element {
+  color: white;
   margin: 1rem;
-  background-color: beige;
+  background-color: black;
   padding: 1rem;
+  border: 1px solid white;
+  border-style: solid;
+  width: 10rem;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.animation {
+  -webkit-animation: fadeinout 0.6s linear forwards;
+  animation: fadeinout 0.6s linear forwards;
+}
+
+.rouge {
+  color: red;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes fadeinout {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
