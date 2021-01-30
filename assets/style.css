@@ -40,38 +40,72 @@ h2 {
   font-weight: bold;
 }
 
-ul {
-  flex: display;
-  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: rgb(23, 39, 35);
-  background-color: rgba(98, 197, 184, 0.616);
-  list-style-position: inside;
-  text-align: left;
-  border-radius: 16px;
-  max-width: 80%;
-  margin: auto;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 20px;
-  padding-left: 20px;
+h3 {
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+
 }
 
-input {
-  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  border: 2px solid rgb(146, 187, 177);
-  border-radius: 4px;
-  background-color: white;
-  opacity: 0.5;
-  color: rgb(80, 105, 84);
+h4 {
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+
 }
 
-button {
-  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  border: 2px solid rgb(146, 187, 177);
-  border-radius: 4px;
-  background-color: white;
-  opacity: 0.5;
-  color: rgb(80, 105, 84);
+
+ul{
+flex: display; 
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+color: rgb(43, 8, 66);
+background-color: rgba(255, 216, 41, 0.616);
+list-style-position: inside; 
+text-align: left; 
+border-radius: 16px;
+max-width: 80%;
+margin: auto;
+margin-right: auto;
+margin-left: auto;
+padding-right: 20px;
+padding-left: 20px;
+padding: 1rem;
+
+}
+
+label{
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+
+input
+{
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+border: 2px solid rgba(43, 8, 66, 0.842);
+border-radius: 4px;
+background-color : white; 
+opacity: 0.5;
+color: white;
+font-size: 14px;
+margin-top: 5px;
+}
+
+button 
+{
+font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+border: 2px rgba(43, 8, 66, 0.842);
+border-radius: 4px;
+background-color : rgba(255, 255, 255, 0.52); 
+opacity: 1;
+color: rgb(43, 8, 66);
+font-size: 14px;
+padding: 2px;
 }
 
 footer {
@@ -79,9 +113,39 @@ footer {
   color: white;
 }
 
-form {
-  text-align: center;
-  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+.form {
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px;  
+}
+
+.multiplayer{
+  display: flex; 
+  flex-direction: column;
+  flex-basis: 0;
+  flex-grow: 1;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  padding: 20px;
+  background-color: rgba(43, 8, 66, 0.897);
+  border-radius: 16px;
+  color: white;
+  margin: 5px
+}
+
+.solo{
+  display: flex; 
+  flex-direction: column;
+  flex-basis: 0;
+  flex-grow: 1;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  padding: 20px;
+  background-color: rgba(43, 8, 66, 0.897);
+  border-radius: 16px;
+  color: white;
+  margin: 5px;
+
 }
 
 .play {
@@ -96,22 +160,6 @@ form {
   font-size: 20px;
 }
 
-.one-player-choice {
-  align-content: center;
-  justify-content: center;
-  color: white;
-  font-size: 2rem;
-  padding: 1rem;
-  max-width: 4rem;
-  max-height: 4rem;
-  background-color: red;
-  opacity: 100;
-}
-
-.player-form {
-  font-size: 2rem;
-  max-height: 2rem;
-}
 /* GAME PART  */
 .game {
   font-family: "Fredoka One", cursive;
