@@ -10,6 +10,7 @@
 
 body {
   background-image: url("img/background.jpg");
+  background-size: 50%;
 }
 
 .module {
