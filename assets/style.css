@@ -42,6 +42,25 @@ h2{
   font-weight: bold;
 }
 
+h3 {
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+
+}
+
+h4 {
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  color: rgb(43, 8, 66);
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+
+}
+
+
 ul{
 flex: display; 
 font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
@@ -63,7 +82,7 @@ padding: 1rem;
 label{
   font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
   font-weight: bold;
-  color: rgb(43, 8, 66);
+  color: white;
 }
 
 
@@ -72,9 +91,9 @@ input
 font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
 border: 2px solid rgba(43, 8, 66, 0.842);
 border-radius: 4px;
-background-color : rgba(43, 8, 66, 0.267); 
+background-color : white; 
 opacity: 0.5;
-color: rgb(43, 8, 66);
+color: white;
 font-size: 14px;
 margin-top: 5px;
 }
@@ -84,7 +103,7 @@ button
 font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
 border: 2px rgba(43, 8, 66, 0.842);
 border-radius: 4px;
-background-color : rgba(43, 8, 66, 0.267); 
+background-color : rgba(255, 255, 255, 0.52); 
 opacity: 1;
 color: rgb(43, 8, 66);
 font-size: 14px;
@@ -103,23 +122,34 @@ color: rgb(43, 8, 66);
   display: flex; 
   flex-direction: row;
   justify-content: center;
-  border: solid black; 
   margin-top: 20px;
-
- 
+  padding: 20px;  
 }
+
 .multiplayer{
   display: flex; 
   flex-direction: column;
+  flex-basis: 0;
+  flex-grow: 1;
   font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
   padding: 20px;
+  background-color: rgba(43, 8, 66, 0.897);
+  border-radius: 16px;
+  color: white;
+  margin: 5px
 }
 
 .solo{
   display: flex; 
   flex-direction: column;
+  flex-basis: 0;
+  flex-grow: 1;
   font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
   padding: 20px;
+  background-color: rgba(43, 8, 66, 0.897);
+  border-radius: 16px;
+  color: white;
+  margin: 5px;
 }
 
 .play {
