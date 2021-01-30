@@ -18,52 +18,45 @@
           </li>
           
           <li>
-            You are X, your friend (or the computer in this case) is O.
+            You are X, your friend (or the computer) is O.
             Players take turns putting their marks in empty squares.
           </li>
 
           <li>
             The first player to get 3 of her marks in a row (up, down,
-            across, or diagonally) is the winner. 4. When all 9 squares are
+            across, or diagonally) is the winner. 
+          </li>
+          <li>When all 9 squares are
             full, the game is over. If no player has 3 marks in a row, the game
             ends in a tie.
           </li>
         </ul>
-          <form action="game.html">
-            <br />
-<<<<<<< HEAD
-            <br />
-            <h2>One player mode</h2>
-            <input type="text" class="player_form" name="player1" id="" placeholder="Your name" />
-            <button class="one-player-choice" value="x">X</button>
-            <button class ="one-player-choice" value="o">O</button>
-          </form>
-            <br />
-            <br />
-            <br />
-
-            <h2>Two Players mode</h2>
-            <label for="player1">Player with X : </label>
-=======
-            <label for="player1">Player with X</label>
->>>>>>> ee9a937663a23dd2de9f3fd1ad54a0e85db7547b
-            <input type="text" name="player1" id="" placeholder="Your name" />
-            <button type ="button">Play</button>
-            <br />
-            <label for="player2">Player with O</label>
-            <input type="text" name="player2" id="" placeholder="Your name" />
-<<<<<<< HEAD
-            <button type ="button">Play!</button>
-            <br />
-            <button class="play">Game</button>
-
-=======
-            <button type ="button">Play</button>
-             </form>
+          <form class="form">
+            <div class="multiplayer">
+              <h3>Multi-player mode</h3>
+                <br/>
+                <div class= "multiplayer_form"> 
+                  <label for="player1">Player with X</label>
+                  <input type="text" name="player1" id="" placeholder="Your name" />
+                  <button type ="button">Play</button>
+                  <br/>
+                  <label for="player2">Player with O</label>
+                  <input type="text" name="player2" id="" placeholder="Your name" />
+                  <button type ="button">Play</button>
+                </div>  
+            </div>
+            <div class ="solo">
+              <h4>Single-player mode</h4>
+                <br>
+                  <div class= "solo_form">
+                    <label for="soloplayer">Player</label>
+                    <input type="text" name="soloplayer" id="" placeholder="Your name" />
+                    <button type ="button">Play</button>
+                  </div>
+            </div>
              <br>
             <button class="play">Let's play</button>
         <br>
->>>>>>> ee9a937663a23dd2de9f3fd1ad54a0e85db7547b
         <br>
        <footer> Copyright Carina & Jojo & Tiphaine </footer>
       </div>
