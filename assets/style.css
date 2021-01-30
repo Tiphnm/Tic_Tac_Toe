@@ -8,11 +8,9 @@
 }
 /* Welcome part */
 
-body 
-{
-  background-image: url("/assets/img/background.jpg")
+body {
+  background-image: url("img/background.jpg");
 }
-
 
 .module {
   color: white;
@@ -30,15 +28,14 @@ body
   padding-left: 20px;
 }
 
-h1{
-  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
-  color: rgb(43, 8, 66);
+h1 {
+  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-weight: bold;
 }
 
-h2{
-  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
-  color: rgb(43, 8, 66);
+h2 {
+  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
   font-weight: bold;
 }
 
@@ -108,14 +105,11 @@ opacity: 1;
 color: rgb(43, 8, 66);
 font-size: 14px;
 padding: 2px;
-
-  
 }
 
-footer{
-font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
-font-weight: bold;
-color: rgb(43, 8, 66);
+footer {
+  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
 }
 
 .form {
@@ -150,19 +144,19 @@ color: rgb(43, 8, 66);
   border-radius: 16px;
   color: white;
   margin: 5px;
+
 }
 
 .play {
-margin: 0 auto;
-padding: 1rem;
-font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
-font-weight: bold;
-border-radius: 4px;
-border: solid  rgb(197, 0, 82) ;
-background-color :  rgb(197, 0, 82); 
-color: white;
-font-size: 20px;
-
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  font-weight: bold;
+  border-radius: 4px;
+  border: solid rgb(197, 0, 82);
+  background-color: rgb(197, 0, 82);
+  color: white;
+  font-size: 20px;
 }
 
 /* GAME PART  */
@@ -231,4 +225,8 @@ font-size: 20px;
   50% {
     opacity: 0;
   }
+}
+label {
+  font-family: "Didot", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: white;
 }
