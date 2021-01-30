@@ -99,9 +99,27 @@ font-weight: bold;
 color: rgb(43, 8, 66);
 }
 
-form{
-text-align: center;
-font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+.form {
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+  border: solid black; 
+  margin-top: 20px;
+
+ 
+}
+.multiplayer{
+  display: flex; 
+  flex-direction: column;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  padding: 20px;
+}
+
+.solo{
+  display: flex; 
+  flex-direction: column;
+  font-family: "Avantgarde", "TeX Gyre Adventor", "URW Gothic L", sans-serif;
+  padding: 20px;
 }
 
 .play {
