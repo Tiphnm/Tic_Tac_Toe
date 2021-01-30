@@ -9,58 +9,68 @@
     <div class="wrapper">
       <div class="module">
         <h1>Tic - Tac - Toe</h1>
-        <br/>
+        <br />
         <h2>RULES FOR TIC-TAC-TOE</h2>
-        <br>
+        <br />
         <ul>
+          <li>The game is played on a grid that's 3 squares by 3 squares.</li>
+
           <li>
-            The game is played on a grid that's 3 squares by 3 squares.
-          </li>
-          
-          <li>
-            You are X, your friend (or the computer) is O.
-            Players take turns putting their marks in empty squares.
+            You are X, your friend (or the computer) is O. Players take turns
+            putting their marks in empty squares.
           </li>
 
           <li>
-            The first player to get 3 of her marks in a row (up, down,
-            across, or diagonally) is the winner. 
+            The first player to get 3 of her marks in a row (up, down, across,
+            or diagonally) is the winner.
           </li>
-          <li>When all 9 squares are
-            full, the game is over. If no player has 3 marks in a row, the game
-            ends in a tie.
+          <li>
+            When all 9 squares are full, the game is over. If no player has 3
+            marks in a row, the game ends in a tie.
           </li>
         </ul>
-          <form class="form">
-            <div class="multiplayer">
-              <h3>Multi-player mode</h3>
-                <br/>
-                <div class= "multiplayer_form"> 
-                  <label for="player1">Player with X</label>
-                  <input type="text" name="player1" id="" placeholder="Your name" />
-                  <button type ="button">Play</button>
-                  <br/>
-                  <label for="player2">Player with O</label>
-                  <input type="text" name="player2" id="" placeholder="Your name" />
-                  <button type ="button">Play</button>
-                </div>  
-            </div>
-            <div class ="solo">
-              <h4>Single-player mode</h4>
-                <br>
-                  <div class= "solo_form">
-                    <label for="soloplayer">Player</label>
-                    <input type="text" name="soloplayer" id="" placeholder="Your name" />
-                    <button type ="button">Play</button>
-                  </div>
-            </div>
-             <br>
-            <button class="play">Let's play</button>
-        <br>
-        <br>
-       <footer> Copyright Carina & Jojo & Tiphaine </footer>
+        <div class="form">
+          <div class="multiplayer">
+            <h3>Multi-player mode</h3>
+            <br />
+            <form class="multiplayer_form">
+              <label for="player1">Player with X</label>
+              <input type="text" name="player1" id="" placeholder="Your name" />
+
+              <br />
+              <label for="player2">Player with O</label>
+              <input type="text" name="player2" id="" placeholder="Your name" />
+
+              <br />
+              <br />
+              <button class="play multiplayer">Let's play</button>
+            </form>
+          </div>
+          <div class="solo">
+            <h4>Single-player mode</h4>
+            <br />
+            <form class="solo_form">
+              <label for="soloplayer">Player</label>
+              <input
+                type="text"
+                name="soloplayer"
+                id=""
+                placeholder="Your name"
+              />
+              <br />
+              <br />
+
+              <button class="play soloplayer">Let's play</button>
+            </form>
+          </div>
+          <br />
+          <br />
+          <br />
+        </div>
       </div>
     </div>
-    </div>
+    <footer>Copyright Carina & Jojo & Tiphaine</footer>
+
+    <script src="assets/game.js"></script>
   </body>
 </html>

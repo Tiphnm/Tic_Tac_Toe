@@ -256,4 +256,8 @@ function print_winner(winnerArray, symbol) {
 
 /// GAMERS FORM ////
 
-//btnPlay = document.querySelector()
+const btnOnePlayer = document.querySelector(".solo-player");
+
+btnOnePlayer.addEventListener("click", () => {
+  console.log("im clicked");
+});
