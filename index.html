@@ -29,16 +29,30 @@
             ends in a tie.
           </li>
         </ul>
-          <form>
-            <br />
-            <label for="player1">Player with X</label>
-            <input type="text" name="player1" id="" placeholder="Your name" />
-            <button type ="button">Play</button>
-            <br />
-            <label for="player2">Player with O</label>
-            <input type="text" name="player2" id="" placeholder="Your name" />
-            <button type ="button">Play</button>
-             </form>
+          <form class="form">
+            <div class="multiplayer">
+              <h3>multiplayer</h3>
+                <br/>
+                <div class= "multiplayer_form"> 
+                  <label for="player1">Player with X</label>
+                  <input type="text" name="player1" id="" placeholder="Your name" />
+                  <button type ="button">Play</button>
+                  <br/>
+                  <label for="player2">Player with O</label>
+                  <input type="text" name="player2" id="" placeholder="Your name" />
+                  <button type ="button">Play</button>
+                </div>  
+            </div>
+            <div class ="solo">
+              <h4>You VS IA</h4>
+                <br>
+                  <div class= "solo_form">
+                    <label for="soloplayer">Player</label>
+                    <input type="text" name="soloplayer" id="" placeholder="Your name" />
+                    <button type ="button">Play</button>
+                  </div>
+            </div>
+          </form>
              <br>
             <button class="play">Let's play</button>
         <br>
