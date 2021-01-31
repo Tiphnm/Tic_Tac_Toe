@@ -1,3 +1,69 @@
+///////////////// ZONE DE VERIFICATION DE PAGE ACTUEL ///////////////////
+//console.log(localStorage.length)//je saurai s'il y a deja des joueurs
+
+var urlActuel = location.href; //on capte l url
+var bloqueUrl = urlActuel.split('/');// converti l url en tableau
+let dernierPartie = bloqueUrl.pop(); //supprime le dernier élément d'un tableau et retourne cet élément.
+let pageActuel="";
+
+let trouve = dernierPartie.indexOf('?');//je verifie si l'url a des parametres
+if(trouve != -1){ /* on a trouvé ? alors on a de parametres get */
+  pageActuel= dernierPartie.split('?')[0];
+}else{
+  pageActuel=dernierPartie;
+}
+
+console.log(pageActuel);
+
+/*******  declaration variables *****/
+let objBody ="";
+let objH1="";
+let joeur_x="";
+let joeur_o="";
+
+//////////////// LOCALSTORAGE ZONE /////////
+
+if (pageActuel == 'game.html') {
+
+    console.log('c est la page game');
+    objBody=document.querySelector("body");
+    objH1=document.createElement("h1");/*pour ajouter la balise des joueurs mais aussi pour le supprimer du DOM?*/
+    objH1.id="titreJoeurs";
+
+    if(localStorage.getItem('jouerSeul')){
+
+        objH1.innerHTML = "Bienvenue <label id='joueurSeule'>" +localStorage.getItem('jouerSeul')+"</label>";
+        joeur_x=localStorage.getItem('jouerSeul');
+        joeur_o= "Ordinateur";
+        /** verifier avec une function si le joueur est deja dans localstorage 
+         * et lui donner une variable qui dependra que 
+        */
+        localStorage.removeItem('jouerSeul');
+    }else if(localStorage.getItem('multiplayer')){
+      
+        //j'appele le item multiplayer et je le transforme en tableau pour afficher ces noms
+        joueurs = localStorage.getItem('multiplayer').split(",")
+        
+        joeur_x=joueurs[0];
+        joeur_o= joueurs[1]; 
+        
+        objH1.innerHTML = "Bienvenue <label id='joueur1'>" +joueurs[0]+"</label> et " + "<label id='joueur2'>" +joueurs[1]+"</label>";
+        localStorage.removeItem('multiplayer');
+    }
+    objH1.style.color="white";
+    objBody.prepend(objH1);// ajoute la balise h1 comme premier enfant du body, append c est à la fin
+    /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
+
+}else{
+  if( document.querySelector("#titreJoeurs")){
+      let elem = document.querySelector('#titreJoeurs');
+      elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
+  }
+}
+
+
+/////////////  FIN LOCALSTORAGE  /////////
+
 ////////////  GAME ZONE  ////////////////
 const elements = document.querySelectorAll(".element");
 let player_1 = false;
@@ -235,6 +301,13 @@ function print_winner(winnerArray, symbol) {
   let my_p = document.createElement("p");
   my_p.innerText = "The winner is " + symbol;
   my_div.appendChild(my_p);
+
+  
+
+/********** MCK6 ajouter une function pour ajouter les resultats aux joeurs à afficher apres */
+
+/*********** MCK6 j'appel une function qui retourn un button pour passer à la page resultats  **********/
+   my_div.appendChild(ajouter_bouton_resultat());
 }
 
 /* function computer_turn() {
@@ -254,10 +327,60 @@ function print_winner(winnerArray, symbol) {
 
 //////////// END OF  GAME ZONE  ////////////////
 
-/// GAMERS FORM ////
+//////////// GAMERS FORM  ZONE ////////////////
 
-const btnOnePlayer = document.querySelector(".solo-player");
+const btnOnePlayer = document.querySelector(".soloplayer");
+const btnMultiPlayer = document.querySelector(".multiplayer");
 
-btnOnePlayer.addEventListener("click", () => {
-  console.log("im clicked");
+/****** cet if verifie si le bouton .solopayer existe *****/
+if(btnOnePlayer){
+  btnOnePlayer.addEventListener("click", () => {
+    //console.log("im clicked");
+    
+    let joueur =  document.querySelector('#jouerSeul').value;
+    //console.log(joueur);
+    localStorage.setItem('jouerSeul', joueur);
+
+    localStorage.setItem(joueur,0);
+    
+  });
+}
+
+/***** cet if verifie si le bouton .multiplayer existe ********/
+if(btnMultiPlayer){
+  btnMultiPlayer.addEventListener("click", () => {
+    //console.log("im clicked");
+    
+    let joueur1 =  document.querySelector('#player1').value;
+    let joueur2 =  document.querySelector('#player2').value;
+    //console.log(joueur);
+    localStorage.setItem('multiplayer', [joueur1,joueur2]);
+
+    //verifier s il y a deja des joueurs avec ces noms
+    localStorage.setItem(joueur1,0);
+    localStorage.setItem(joueur2,0);
+    
+  });
+}
+
+/********* ajoute button pour passer à la page resultats  **********/
+function ajouter_bouton_resultat(){  
+
+  let my_bouton = document.createElement("button");
+  my_bouton.innerHTML="Voir les resultats";
+  my_bouton.classList.add("play");
+  my_bouton.addEventListener("click", function(){
+    document.location.href = 'resultat.html';
+  });
+
+  return my_bouton;
+}
+
+//L'événement StorageEvent est lancé dès lors qu'un changement est fait sur l'objet Storage.
+window.addEventListener('storage', function(e) {
+  console.log(e.key);
+  console.log(e.oldValue);
+  console.log(e.newValue);
+  console.log(e.url);
+  console.log(e.storageArea);
 });

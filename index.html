@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <title>Tic Tac Toe</title>
@@ -33,28 +33,28 @@
           <div class="multiplayer">
             <h3>Multi-player mode</h3>
             <br />
-            <form class="multiplayer_form">
+            <form class="multiplayer_form" action="game.html" method="get">
               <label for="player1">Player with X</label>
-              <input type="text" name="player1" id="" placeholder="Your name" />
+              <input type="text" name="player1" id="player1" placeholder="Your name" />
 
               <br />
               <label for="player2">Player with O</label>
-              <input type="text" name="player2" id="" placeholder="Your name" />
+              <input type="text" name="player2" id="player2" placeholder="Your name" />
 
               <br />
               <br />
-              <button class="play multiplayer">Let's play</button>
+              <button id="" class="play multiplayer">Let's play</button>
             </form>
           </div>
           <div class="solo">
             <h4>Single-player mode</h4>
             <br />
-            <form class="solo_form">
+            <form class="solo_form" action="game.html" method="get">
               <label for="soloplayer">Player</label>
               <input
                 type="text"
                 name="soloplayer"
-                id=""
+                id="jouerSeul"
                 placeholder="Your name"
               />
               <br />
