@@ -1,8 +1,7 @@
-////////////  GAME ZONE  ////////////////
-const elements = document.querySelectorAll(".element");
-let player_1 = false;
-var gameIsOn = true;
-const winning_combinations = [
+var gameTable = [];
+const human = "O";
+const ai = "X";
+const winingCombinations = [
   [0, 1, 2],
   [3, 4, 5],
   [6, 7, 8],
@@ -13,247 +12,174 @@ const winning_combinations = [
   [6, 4, 2],
 ];
 
-let playerMoves = [];
-const table = [[], [], []];
-// audio objs
-player_x = new Audio("./assets/audio/xplayer.mp3");
-player_o = new Audio("./assets/audio/oplayer.mp3");
-
-if (gameIsOn) {
-  init_event();
+const elements = document.querySelectorAll(".element");
+// make a digital board
+for (i = 0; i < 9; i++) {
+  gameTable.push(i);
 }
+// ---------- Game start function ---------------
+gameOn();
 
-function init_event() {
-  for (const element of elements) {
-    element.addEventListener("click", ticTacToe_solo, false);
+function gameOn() {
+  // game over message
+  document.querySelector(".endgame").style.display = "none";
+  for (i = 0; i < elements.length; i++) {
+    elements[i].innerText = "";
+    // remove the color of the winner
+    elements[i].classList.remove("background-color");
+    elements[i].addEventListener("click", ticTacToe, false);
   }
 }
 
-function ticTacToe(input) {
-  let value = input.target.querySelector("span");
-  console.log(value);
-  if (value.innerText == "") {
-    if (!player_1) {
-      value.classList.add("animation");
-      value.innerText = "X";
-      player_x.play();
-      player_1 = true;
-    } else {
-      value.classList.add("animation");
-      value.innerText = "O";
-      player_1 = false;
-      player_o.play();
+function ticTacToe(event) {
+  // check if the square is free, otherwise you cannot click in a played cell
+  // game table is filled with numbers at the start, but replaced by string each turn
+  if (typeof gameTable[event.target.id] == "number") {
+    //Execute the turn function for a CLIC as human play and WHERE is clicked;
+    turn(event.target.id, human);
+    // null game means tie, so is THERE IS NOT A TIE, the computer will play
+    if (!nullgame()) {
+      // then ai will play in the best option square
+      turn(bestOption(), ai);
     }
-    is_winner();
-  }
-  console.log(gameIsOn);
-}
-
-function fill_table(player_move, symbol) {
-  if (player_move < 3) {
-    table[0].push(symbol);
   }
 }
 
-function ticTacToe_solo(input) {
-  let value = input.target.querySelector("span");
-  if (value.innerText == "") {
-    if (!player_1) {
-      value.classList.add("animation");
-      value.innerText = "X";
-      player_x.play();
-      player_1 = true;
+// each player have a TURN to put and X or an O in the GAMETABLE BOARD
+function turn(cellId, player) {
+  gameTable[cellId] = player;
+  document.querySelector(`#${CSS.escape(cellId)}`).innerText = player;
+  console.log(gameTable);
+  let isGameWon = checkForWinner(gameTable, player);
+  // if game won is not null, then  execute game is over and transfer who won.
+  if (isGameWon) {
+    gameOver(isGameWon);
+  }
+}
+
+function checkForWinner(board, player) {
+  // just make a list of the human play, in wich index of element?
+  let plays = board.reduce((a, e, i) => (e === player ? a.concat(i) : a), []);
+  console.log(plays);
+  // game won by default is null... unless
+  let gameWon = null;
+  // check for the index and who won. using constant desconstruction
+  // loop for all every win combinantions and check if PLAYS is one of them
+  for (let [index, win] of winingCombinations.entries()) {
+    if (win.every((elem) => plays.indexOf(elem) > -1)) {
+      // return who won?  player, index is the WINNING COMBINATION that made that player win
+      gameWon = { index: index, player: player };
+      break;
     }
-    if (player_1) {
-      free_spaces = [];
-      // the player has played what?
-      let player_move = parseInt(input.target.id);
-      playerMoves.push(player_move);
-      //fill_table(player_move, "X");
-      console.log("Player moves so far: " + playerMoves);
-      // what combinations are related to that move
-      // function ia(player_last_move)
-      // now that we have only two posibilites, lets play the first one
-      // lets verify if the space is empty
-      const last_move = playerMoves[playerMoves.length - 1];
-      console.log("player last move is:" + last_move);
-
-      /*    do {
-        free_spaces = ia(last_move);
-      } while (free_spaces == []);
-
-      console.log("------------");
-      console.log(free_spaces);
-      console.log("------------");
- */
-      computerPlay(last_move);
-    }
-    is_winner();
   }
+  //console.log(gameWon);
+  return gameWon;
 }
 
-function computerPlay(last_move) {
-  do {
-    free_spaces = ia(last_move);
-  } while (free_spaces == []);
-  // we have two spaces left in our strategy
-  let one = free_spaces[0];
-  let two = free_spaces[1];
-  if (cell(one) == "") {
-    let play = setTimeout(() => {
-      iaFillSpace(one);
-    }, 1000);
-    player_1 = false;
-  } else if (cell(two) == "") {
-    let play = setTimeout(() => {
-      iaFillSpace(two);
-    }, 1000);
-    player_1 = false;
+function gameOver(gameWon) {
+  // get the winner combination of game won and select from the combinations
+  for (let index of winingCombinations[gameWon.index]) {
+    // if the human won , put a blue background in those elements
+    document.querySelector(`#${CSS.escape(index)}`).style.backgroundColor =
+      gameWon.player == human ? "blue" : "red";
+  }
+  // as the game is over, Kill the event click
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].removeEventListener("click", ticTacToe, false);
+  }
+  if (gameWon.player == human) {
+    printWinner("You win");
   } else {
-    // When both of the free spaces of the selected strategy are busy, we betters
-    //select another strategy
-    console.log("i better think another thing");
+    printWinner("You loose");
   }
 }
 
-// -------------- IA SELECT STRATEGY ---------
-function ia(player_last_move) {
-  // include maybe player move
-  let iaCombinations = winning_combinations.filter((combination) => {
-    return combination.includes(player_last_move);
-  });
+// print the winner
+function printWinner(winner) {
+  document.querySelector(".endgame").style.display = "block";
+  document.querySelector(".text").innerText = winner;
+}
 
-  // now we have all the N posible combinations for the
-  // player if he wants to win
-  let numberOfCombinations = iaCombinations.length;
-  console.log("The player can win in this " + numberOfCombinations + " ways");
-  console.log(iaCombinations);
-
-  let selectedCombination;
-  let free_spaces;
-  for (i = 0; i < numberOfCombinations; i++) {
-    selectedCombination = iaCombinations[i];
-    console.log("nepe" + selectedCombination);
-    free_spaces = selectedCombination.filter((spaces) => {
-      if (spaces != player_last_move && cell(spaces) == "") {
-        return spaces;
-      }
-    });
-  }
-  // 3 or 4 winning combinations lets pick a random one
-  let n = Math.floor(Math.random() * numberOfCombinations);
-  console.log("im selecting the strategy number " + n);
-  // Now we have selected one combination of 3 numbers
-  //let selectedCombination = iaCombinations[n];
-  // one of them includes the number of the player, so we have two spaces left.
-  // lets filter and return those 2 free spaces
-
-  //let free_spaces = selectedCombination.filter((spaces) => {
-  /*     if (spaces !== player_last_move && cell(spaces) == "") {
-      return spaces;
-    } else {
-      do {
-        m = Math.floor(Math.random() * numberOfCombinations);
-      } while (m != n);
-      selectedCombination = iaCombinations[m];
-      if (spaces !== player_last_move && cell(spaces) == "") {
-        return spaces;
-      }
+// check what are the spaces/cells that are free to play (for the AI)
+function freeCells() {
+  let freeCelltoPlay = gameTable.filter((free) => {
+    if (typeof free == "number") {
+      // if the values of the arrays are numbers it means that is a free spot
+      return free;
     }
   });
- */
-  if (free_spaces == []) {
-    console.log("i must to something");
-  }
-  return free_spaces;
+  //console.log(freeCelltoPlay);
+  return freeCelltoPlay;
 }
 
-function iaFillSpace(space) {
-  elements[space].querySelector("span").innerText = "O";
-  elements[space].querySelector("span").classList.add("animation");
-  player_1 = false;
-  player_o.play();
+//
+function bestOption() {
+  // call the  min max function and return the index of the board that the ai should play in
+  return minimax(gameTable, ai).index;
 }
 
-// --------- END OF IA SELECT STRATEGIE ---------
-
-function kill_event() {
-  for (const element of elements) {
-    element.removeEventListener("click", ticTacToe, { capture: false });
-  }
-}
-
-function cell(n) {
-  try {
-    return elements[n].querySelector("span").innerText;
-  } catch (TypeError) {
-    return false;
-  }
-}
-
-function is_winner() {
-  let player_x = ["X", "X", "X"];
-  let player_o = ["O", "O", "O"];
-
-  winning_combinations.forEach((combination) => {
-    winning_cells = [
-      cell(combination[0]),
-      cell(combination[1]),
-      cell(combination[2]),
-    ];
-    if (arraysEqual(winning_cells, player_x)) {
-      // alert("win");
-      print_winner(combination, "x");
-      // KILL THE EVENT
-      return true;
+function nullgame() {
+  if (freeCells().length == 0) {
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].style.backgroundColor = "green";
+      elements[i].removeEventListener("click", ticTacToe, false);
     }
-    if (arraysEqual(winning_cells, player_o)) {
-      print_winner(combination, "o");
-      alert("win");
-      return true;
-    }
-  });
-
+    printWinner("Tie game!");
+    return true;
+  }
   return false;
 }
 
-function arraysEqual(a, b) {
-  if (JSON.stringify(a) == JSON.stringify(b)) {
-    return true;
-  } else {
-    return false;
+/// Start of min-max function ///
+
+function minimax(newGameTable, player) {
+  var availSpots = freeCells();
+
+  if (checkForWinner(newGameTable, human)) {
+    return { score: -10 };
+  } else if (checkForWinner(newGameTable, ai)) {
+    return { score: 10 };
+  } else if (availSpots.length === 0) {
+    return { score: 0 };
   }
+
+  var moves = [];
+  for (let i = 0; i < availSpots.length; i++) {
+    var move = {};
+    move.index = newGameTable[availSpots[i]];
+    newGameTable[availSpots[i]] = player;
+
+    if (player === ai) move.score = minimax(newGameTable, human).score;
+    else move.score = minimax(newGameTable, ai).score;
+    newGameTable[availSpots[i]] = move.index;
+    if (
+      (player === ai && move.score === 10) ||
+      (player === human && move.score === -10)
+    )
+      return move;
+    else moves.push(move);
+  }
+
+  let bestMove, bestScore;
+  if (player === ai) {
+    bestScore = -1000;
+    for (let i = 0; i < moves.length; i++) {
+      if (moves[i].score > bestScore) {
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  } else {
+    bestScore = 1000;
+    for (let i = 0; i < moves.length; i++) {
+      if (moves[i].score < bestScore) {
+        bestScore = moves[i].score;
+        bestMove = i;
+      }
+    }
+  }
+
+  return moves[bestMove];
 }
 
-function print_winner(winnerArray, symbol) {
-  for (i = 0; i < 3; i++) {
-    elements[winnerArray[i]].classList.add("rouge");
-  }
-  gameIsOn = false;
-  kill_event();
-  let my_div = document.querySelector(".winner");
-  let my_p = document.createElement("p");
-  my_p.innerText = "The winner is " + symbol;
-  my_div.appendChild(my_p);
-}
-
-/* function computer_turn() {
-  let n = Math.floor(Math.random() * 10);
-  console.log(elements[n]);
-  elementValue = elements[n].querySelector("span");
-
-  array.forEach((element) => {});
-
-  if (elementValue.innerText == "") {
-    elementValue.innerText = "O";
-  } else {
-    let n = Math.floor(Math.random() * 10);
-    computer_turn(n);
-  }
-} */
-
-//////////// END OF  GAME ZONE  ////////////////
-
-/// GAMERS FORM ////
-
-//btnPlay = document.querySelector()
+// end of Min-max function
