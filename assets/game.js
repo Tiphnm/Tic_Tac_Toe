@@ -61,6 +61,14 @@ if (pageActuel == 'game.html') {
       let elem = document.querySelector('#titreJoeurs');
       elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
   }
+  if (pageActuel == 'resultat.html') {
+      //parcourir le localstorage pour savoir le gagnant
+      liste_resultat=[];
+      for( x of localStorage){
+        console.log(x);
+      }
+
+  } 
 }
 
 
