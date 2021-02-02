@@ -114,6 +114,14 @@ if (pageActuel == 'game.html') {
       elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
 >>>>>>> dcd38f6c4b343f2e5fe1d9a310d850dedea6d215
   }
+  if (pageActuel == 'resultat.html') {
+      //parcourir le localstorage pour savoir le gagnant
+      liste_resultat=[];
+      for( x of localStorage){
+        console.log(x);
+      }
+
+  } 
 }
 
 /////////////  FIN LOCALSTORAGE  /////////
