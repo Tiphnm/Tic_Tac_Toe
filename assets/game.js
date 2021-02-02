@@ -20,6 +20,7 @@ let objBody ="";
 let objH1="";
 let joeur_x="";
 let joeur_o="";
+let jGagn ="";
 
 //////////////// LOCALSTORAGE ZONE /////////
 
@@ -55,6 +56,7 @@ if (pageActuel == 'game.html') {
     /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
 
 }else{
+  //efacce le h1 de bievenue de la page game.html
   if( document.querySelector("#titreJoeurs")){
       let elem = document.querySelector('#titreJoeurs');
       elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
@@ -299,12 +301,15 @@ function print_winner(winnerArray, symbol) {
   kill_event();
   let my_div = document.querySelector(".winner");
   let my_p = document.createElement("p");
-  my_p.innerText = "The winner is " + symbol;
+
+  jGagn = (symbol == "x")? joeur_x : joeur_o;
+
+  my_p.innerText = "The winner is " + jGagn;  //symbol;
   my_div.appendChild(my_p);
 
-  
-
+ 
 /********** MCK6 ajouter une function pour ajouter les resultats aux joeurs à afficher apres */
+  engistreCalculPoints(symbol);
 
 /*********** MCK6 j'appel une function qui retourn un button pour passer à la page resultats  **********/
    my_div.appendChild(ajouter_bouton_resultat());
@@ -340,8 +345,14 @@ if(btnOnePlayer){
     let joueur =  document.querySelector('#jouerSeul').value;
     //console.log(joueur);
     localStorage.setItem('jouerSeul', joueur);
-
-    localStorage.setItem(joueur,0);
+    
+    //on verifie si le joeur existe deja
+    if(localStorage.getItem(joueur)){
+      console.log('Jouer deja existante');
+    }else{
+        localStorage.setItem(joueur,0);
+        console.log("Nouveau joueur !!");
+    }
     
   });
 }
@@ -351,14 +362,28 @@ if(btnMultiPlayer){
   btnMultiPlayer.addEventListener("click", () => {
     //console.log("im clicked");
     
-    let joueur1 =  document.querySelector('#player1').value;
-    let joueur2 =  document.querySelector('#player2').value;
-    //console.log(joueur);
+    //on declare les variables avec les noms des joueur
+     let joueur1 =  document.querySelector('#player1').value;
+     let joueur2 =  document.querySelector('#player2').value;
+    
+     //on declare dans le localstorage le type de jeux
     localStorage.setItem('multiplayer', [joueur1,joueur2]);
 
     //verifier s il y a deja des joueurs avec ces noms
-    localStorage.setItem(joueur1,0);
-    localStorage.setItem(joueur2,0);
+    if(localStorage.getItem(joueur1)){
+        console.log('Jouer deja existante');
+    }else{
+        localStorage.setItem(joueur1,0);
+        console.log("Nouveau joueur !!");
+    }
+    
+    if(localStorage.getItem(joueur2)){
+      console.log('Jouer deja existante');
+    }else{
+        localStorage.setItem(joueur2,0);
+        console.log("Nouveau joueur !!");
+    }
+   
     
   });
 }
@@ -367,20 +392,42 @@ if(btnMultiPlayer){
 function ajouter_bouton_resultat(){  
 
   let my_bouton = document.createElement("button");
+
   my_bouton.innerHTML="Voir les resultats";
+
   my_bouton.classList.add("play");
+
   my_bouton.addEventListener("click", function(){
+
+    //je change la direction de la page
     document.location.href = 'resultat.html';
+
   });
 
   return my_bouton;
 }
 
-//L'événement StorageEvent est lancé dès lors qu'un changement est fait sur l'objet Storage.
-window.addEventListener('storage', function(e) {
-  console.log(e.key);
-  console.log(e.oldValue);
-  console.log(e.newValue);
-  console.log(e.url);
-  console.log(e.storageArea);
-});
+/**
+ * il ajoutera les points aux jouer gagnant
+ * @param {*} gagnant 
+ */
+function engistreCalculPoints(gagnant){
+
+    if(gagnant == "x" || gagnant =="o"){
+
+        console.log(jGagn); 
+        console.log(localStorage.getItem(jGagn));
+        
+        pointsActuel=parseInt(localStorage.getItem(jGagn));
+        console.log(pointsActuel);
+
+        let calculPoints = pointsActuel + 1000;
+        
+        console.log(calculPoints);
+        localStorage.setItem(jGagn, String(calculPoints));
+
+    }else{
+      console.log("Error, gagnant indefini");
+    }
+}
+
