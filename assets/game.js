@@ -431,3 +431,8 @@ function engistreCalculPoints(gagnant){
     }
 }
 
+////////////////// Bouton retour page d'accueil ///////////////////////////////
+
+document.querySelector("#home_page_return").addEventListener("click", function (){
+  document.location.href = "index.html" ;
+})
