@@ -251,6 +251,7 @@ if (pageActuel == "game.html") {
   function printWinner(winner) {
     document.querySelector(".endgame").style.display = "block";
     document.querySelector(".text").innerText = winner;
+    my_div.appendChild(ajouter_bouton_resultat());
   }
 
   // check what are the spaces/cells that are free to play (for the AI)
@@ -336,3 +337,21 @@ if (pageActuel == "game.html") {
   }
 }
 // end of Min-max function
+
+//////////// RESULTATS ////////////////
+
+/********** MCK6 ajouter une function pour ajouter les resultats aux joeurs à afficher apres */
+
+/*********** MCK6 j'appel une function qui retourn un button pour passer à la page resultats  **********/
+
+/********* ajoute button pour passer à la page resultats  **********/
+function ajouter_bouton_resultat() {
+  let my_bouton = document.createElement("button");
+  my_bouton.innerHTML = "Voir les resultats";
+  my_bouton.classList.add("play");
+  my_bouton.addEventListener("click", function () {
+    document.location.href = "resultat.html";
+  });
+
+  return my_bouton;
+}

@@ -17,6 +17,7 @@ if (trouve != -1) {
 console.log(pageActuel);
 
 /*******  declaration variables *****/
+<<<<<<< HEAD
 let objBody = "";
 let objH1 = "";
 let joeur_x = "";
@@ -66,6 +67,52 @@ if (pageActuel == "game.html") {
   if (document.querySelector("#titreJoeurs")) {
     let elem = document.querySelector("#titreJoeurs");
     elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
+=======
+let objBody ="";
+let objH1="";
+let joeur_x="";
+let joeur_o="";
+let jGagn ="";
+
+//////////////// LOCALSTORAGE ZONE /////////
+
+if (pageActuel == 'game.html') {
+
+    console.log('c est la page game');
+    objBody=document.querySelector("body");
+    objH1=document.createElement("h1");/*pour ajouter la balise des joueurs mais aussi pour le supprimer du DOM?*/
+    objH1.id="titreJoeurs";
+
+    if(localStorage.getItem('jouerSeul')){
+
+        objH1.innerHTML = "Bienvenue <label id='joueurSeule'>" +localStorage.getItem('jouerSeul')+"</label>";
+        joeur_x=localStorage.getItem('jouerSeul');
+        joeur_o= "Ordinateur";
+        /** verifier avec une function si le joueur est deja dans localstorage 
+         * et lui donner une variable qui dependra que 
+        */
+        localStorage.removeItem('jouerSeul');
+    }else if(localStorage.getItem('multiplayer')){
+      
+        //j'appele le item multiplayer et je le transforme en tableau pour afficher ces noms
+        joueurs = localStorage.getItem('multiplayer').split(",")
+        
+        joeur_x=joueurs[0];
+        joeur_o= joueurs[1]; 
+        
+        objH1.innerHTML = "Bienvenue <label id='joueur1'>" +joueurs[0]+"</label> et " + "<label id='joueur2'>" +joueurs[1]+"</label>";
+        localStorage.removeItem('multiplayer');
+    }
+    objH1.style.color="white";
+    objBody.prepend(objH1);// ajoute la balise h1 comme premier enfant du body, append c est à la fin
+    /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
+
+}else{
+  //efacce le h1 de bievenue de la page game.html
+  if( document.querySelector("#titreJoeurs")){
+      let elem = document.querySelector('#titreJoeurs');
+      elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
+>>>>>>> dcd38f6c4b343f2e5fe1d9a310d850dedea6d215
   }
 }
 
@@ -306,8 +353,6 @@ function print_winner(winnerArray, symbol) {
   kill_event();
   let my_div = document.querySelector(".winner");
   let my_p = document.createElement("p");
-  my_p.innerText = "The winner is " + symbol;
-  my_div.appendChild(my_p);
 
   /********** MCK6 ajouter une function pour ajouter les resultats aux joeurs à afficher apres */
 
