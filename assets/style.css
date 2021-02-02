@@ -163,8 +163,10 @@ footer {
   font-family: "Fredoka One", cursive;
   font-size: 7rem;
   display: flex;
+  flex-direction: column;
   flex: 1;
   justify-content: center;
+  color: rgba(43, 8, 66, 0.897);
 }
 .gametable {
   background-color: white;

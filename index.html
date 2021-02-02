@@ -35,11 +35,21 @@
             <br />
             <form class="multiplayer_form" action="game.html" method="get">
               <label for="player1">Player with X</label>
-              <input type="text" name="player1" id="player1" placeholder="Your name" />
+              <input
+                type="text"
+                name="player1"
+                id="player1"
+                placeholder="Your name"
+              />
 
               <br />
               <label for="player2">Player with O</label>
-              <input type="text" name="player2" id="player2" placeholder="Your name" />
+              <input
+                type="text"
+                name="player2"
+                id="player2"
+                placeholder="Your name"
+              />
 
               <br />
               <br />
@@ -56,11 +66,13 @@
                 name="soloplayer"
                 id="jouerSeul"
                 placeholder="Your name"
+                required
               />
               <br />
               <br />
 
-              <button class="play soloplayer">Let's play</button>
+              <button class="play soloplayer x">Play as X</button>
+              <button class="play soloplayer o">Play as O</button>
             </form>
           </div>
           <br />
@@ -71,6 +83,6 @@
     </div>
     <footer>Copyright Carina & Jojo & Tiphaine</footer>
 
-    <script src="assets/game.js"></script>
+    <script src="assets/app.js"></script>
   </body>
 </html>
