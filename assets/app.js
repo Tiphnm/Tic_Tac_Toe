@@ -130,12 +130,27 @@ if (pageActuel == "game.html") {
   }
   div.prepend(titleMsg);
 
-  /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
+    /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
+    console.log('voir les localstorage');
+    for (var i = 0; i < localStorage.length; i++) {
+        console.log('localStorage.key(i) ',localStorage.key(i));
+        console.log(localStorage.getItem(localStorage.key(i)));
+    }
+
 } else {
   if (document.querySelector("#titreJoeurs")) {
     let elem = document.querySelector("#titreJoeurs");
     elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
   }
+  if (pageActuel == 'resultat.html') {
+    //parcourir le localstorage pour savoir le gagnant
+    liste_resultat=[];
+    // for( x of localStorage){
+    //   console.log(x);
+    // }
+
+  } 
+
 }
 
 /////////////  FIN LOCALSTORAGE  /////////
@@ -251,7 +266,7 @@ if (pageActuel == "game.html") {
   function printWinner(winner) {
     document.querySelector(".endgame").style.display = "block";
     document.querySelector(".text").innerText = winner;
-    my_div.appendChild(ajouter_bouton_resultat());
+     document.querySelector(".endgame").appendChild(ajouter_bouton_resultat());
   }
 
   // check what are the spaces/cells that are free to play (for the AI)
@@ -339,19 +354,10 @@ if (pageActuel == "game.html") {
 // end of Min-max function
 
 //////////// RESULTATS ////////////////
-
-/********** MCK6 ajouter une function pour ajouter les resultats aux joeurs à afficher apres */
-
-/*********** MCK6 j'appel une function qui retourn un button pour passer à la page resultats  **********/
-
-/********* ajoute button pour passer à la page resultats  **********/
-function ajouter_bouton_resultat() {
-  let my_bouton = document.createElement("button");
-  my_bouton.innerHTML = "Voir les resultats";
-  my_bouton.classList.add("play");
-  my_bouton.addEventListener("click", function () {
-    document.location.href = "resultat.html";
-  });
-
-  return my_bouton;
+if(document.querySelector("#home_page_return")){
+  document.querySelector("#home_page_return").addEventListener('click',() => {
+  document.location.href = "index.html";
+})
 }
+
+
