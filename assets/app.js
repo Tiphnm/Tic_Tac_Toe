@@ -35,7 +35,7 @@ const btnMultiPlayer = document.querySelector(".multiplayer");
 
 // Get the name of the player and the symbol X or O
 if (soloPlayerX) {
-  soloPlayerX.addEventListener("click", () => {
+    soloPlayerX.addEventListener("click", () => {
     soloPlayer = inputName.value + ",X";
     localStorage.setItem("soloplayer", soloPlayer);
   });
@@ -64,28 +64,21 @@ if (btnMultiPlayer) {
 
 /********* ajoute button pour passer à la page resultats  **********/
 function ajouter_bouton_resultat() {
-  let my_bouton = document.createElement("button");
-  my_bouton.innerHTML = "Voir les resultats";
-  my_bouton.classList.add("play");
-  my_bouton.addEventListener("click", function () {
-    document.location.href = "resultat.html";
-  });
 
-  return my_bouton;
+  return ajouter_bouton('resultat');
 }
 
-//L'événement StorageEvent est lancé dès lors qu'un changement est fait sur l'objet Storage.
-window.addEventListener("storage", function (e) {
-  console.log(e.key);
-  console.log(e.oldValue);
-  console.log(e.newValue);
-  console.log(e.url);
-  console.log(e.storageArea);
-});
+/**
+ * retourner à la accueil
+ */
+function ajouter_bouton_accueil() {
 
-//////////////// LOCALSTORAGE ZONE /////////
+  return ajouter_bouton('accueil');
+}
+
 
 if (pageActuel == "game.html") {
+
   let div = document.querySelector(".module");
   let titleMsg = document.createElement("h1");
 
@@ -105,6 +98,7 @@ if (pageActuel == "game.html") {
     }
 
     localStorage.removeItem("soloplayer");
+
   } else if (localStorage.getItem("multiplayer")) {
     //j'appele le item multiplayer et je le transforme en tableau pour afficher ces noms
     joueurs = localStorage.getItem("multiplayer").split(",");
@@ -129,13 +123,7 @@ if (pageActuel == "game.html") {
     localStorage.removeItem("multiplayer");
   }
   div.prepend(titleMsg);
-
-    /***** efacer du local storage la declaration du jeux solo ou deux, on utilisera apres les variables correspondant  */
-    console.log('voir les localstorage');
-    for (var i = 0; i < localStorage.length; i++) {
-        console.log('localStorage.key(i) ',localStorage.key(i));
-        console.log(localStorage.getItem(localStorage.key(i)));
-    }
+    
 
 } else {
   if (document.querySelector("#titreJoeurs")) {
@@ -143,17 +131,55 @@ if (pageActuel == "game.html") {
     elem.nextElementSibling.remove(); // Retire l'élément #titreJoeurs
   }
   if (pageActuel == 'resultat.html') {
+
     //parcourir le localstorage pour savoir le gagnant
-    liste_resultat=[];
-    // for( x of localStorage){
-    //   console.log(x);
-    // }
+    liste_resultat=[];   
+    
+    if(localStorage.getItem('resultat')){
+        
+        //on recupere les scores des  jeux
+        let resultat = JSON.parse(localStorage.getItem('resultat'));
+        //on ordenne les resultats en mode decroisant, alors on aura le premier dans la premier place
+        let objetOrdenne = Object.keys(resultat).sort(function(a,b){return resultat[b]-resultat[a]});
+        
+        //on recupere la balise div
+        let divConteneur = document.querySelector("#positionWinner");
+      
+        /**il afichera les meilleurs 10 utilisatuers */  
+        for (let x=0; (x < objetOrdenne.length && x <= 10); x++){        
+            let conteneurDiv= document.createElement("div");
+            if(x==0){
+
+              conteneurDiv.appendChild(ajouter_p("<label>1er</label> <i class=\"fas fa-trophy\" aria-hidden=\"true\"></i>  "+ objetOrdenne[x]));
+              
+            }else{
+
+              conteneurDiv.appendChild(ajouter_p("<label>"+(x+1)+" - </label> "+ objetOrdenne[x]));
+              
+            }
+            conteneurDiv.appendChild(ajouter_p(resultat[objetOrdenne[x]]+" points")); 
+
+            divConteneur.appendChild(conteneurDiv);
+
+        }
+    }
+
+    //bouton pour reinitialiser les scores, les points
+    document.querySelector("#mettreZero").addEventListener('click',()=>{
+
+      if (confirm("Vous etez sur de reinitialeser les scores ? ")) {
+          localStorage.setItem('resultat', '');
+          document.location.reload();
+      } 
+      
+      
+    });
 
   } 
 
+
 }
 
-/////////////  FIN LOCALSTORAGE  /////////
 
 /////////////////////       GAME ZONE //////////////////////////////
 
@@ -257,6 +283,11 @@ if (pageActuel == "game.html") {
     }
     if (gameWon.player == human) {
       printWinner("You win");
+
+      //add the points winner
+      //ajouter les points au gagnant pour les utiliser dans la page resultat      
+      calculeResultat(rules.name);
+
     } else {
       printWinner("You loose");
     }
@@ -266,7 +297,16 @@ if (pageActuel == "game.html") {
   function printWinner(winner) {
     document.querySelector(".endgame").style.display = "block";
     document.querySelector(".text").innerText = winner;
+
+    //adds the button to go to the result page
+    //ajoute le bouton pour aller à la page resultat
      document.querySelector(".endgame").appendChild(ajouter_bouton_resultat());
+
+    /**Bouton pour rejouer en passant pour l'accueil 
+     * TODO Amelioration : faire la sorte de rester dans la meme page en jouant avec le meme utilisateur utiliser
+     */
+     document.querySelector(".endgame").appendChild(ajouter_bouton_accueil());   
+      
   }
 
   // check what are the spaces/cells that are free to play (for the AI)
@@ -353,11 +393,68 @@ if (pageActuel == "game.html") {
 }
 // end of Min-max function
 
+/*** */
+function calculeResultat(gagnant){
+    
+    let resultat = {};
+    
+    //on verifie si resultat est vide
+    if(localStorage.getItem('resultat') != '' ){
+
+      //on recupere le score des utilisateurs
+      resultat = JSON.parse(localStorage.getItem('resultat'));
+    }
+    
+    
+    let calculResultat=0;
+    //verifie si le gagnant existe deja
+    if(resultat[gagnant]){
+        calculResultat=resultat[gagnant] + 1000;
+    }else{
+      calculResultat=1000;
+    }
+    //on enregistre le resultat du gagnant dans l'objet
+    resultat[gagnant] =calculResultat;
+    console.log(resultat);
+
+    //on enregistre les scores
+    localStorage.setItem('resultat', JSON.stringify(resultat));    
+
+}
+
+function ajouter_bouton(quoi){
+
+  let my_bouton = document.createElement("button");
+  my_bouton.innerHTML = (quoi =='accueil')?"Rejouer" :"Voir les resultats";
+  my_bouton.classList.add("play");
+  my_bouton.classList.add("btn_lien_game");
+
+  my_bouton.addEventListener("click", function () {
+      
+        document.location.href = (quoi =='accueil')?"index.html":"resultat.html";
+  });
+
+  return my_bouton;
+
+}
+
 //////////// RESULTATS ////////////////
 if(document.querySelector("#home_page_return")){
-  document.querySelector("#home_page_return").addEventListener('click',() => {
-  document.location.href = "index.html";
-})
+      document.querySelector("#home_page_return").addEventListener('click',() => {
+      document.location.href = "index.html";
+    })
+}
+
+/**
+ * ajoute un bouton p
+ */
+function ajouter_p(textTitre) {
+
+  let my_p = document.createElement("p");
+  my_p.innerHTML = textTitre;  
+
+  return my_p; 
+
 }
 
 
