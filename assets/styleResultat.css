@@ -69,7 +69,7 @@ img{
     flex-direction: column;
     align-items: center;
     width: 80%;
-    padding-bottom: 100px;
+    padding-bottom: 70px;
 
     color: white;
  
@@ -85,7 +85,8 @@ img{
     margin-top: 20px;
     border: 2px solid rgb(133, 230, 236);
     background-color: cadetblue;
-    width: 30%;
+    width: 50%;
+    padding: 1rem;
    
 }
 
@@ -97,4 +98,8 @@ div#nro1{
 
 #positionWinner>div:nth-child(2){
     border: 8px dotted rgb(133, 230, 236);
+}
+
+#mettreZero{
+    margin-left: 2rem;
 }
