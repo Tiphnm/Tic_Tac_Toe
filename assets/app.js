@@ -136,32 +136,35 @@ if (pageActuel == "game.html") {
     liste_resultat=[];   
     
     if(localStorage.getItem('resultat')){
-        
+        let objVictoires={};  
+        let divConteneur = document.querySelector("#positionWinner");
+
         //on recupere les scores des  jeux
         let resultat = JSON.parse(localStorage.getItem('resultat'));
-        //on ordenne les resultats en mode decroisant, alors on aura le premier dans la premier place
-        let objetOrdenne = Object.keys(resultat).sort(function(a,b){return resultat[b]-resultat[a]});
         
-        //on recupere la balise div
-        let divConteneur = document.querySelector("#positionWinner");
-      
-        /**il afichera les meilleurs 10 utilisatuers */  
-        for (let x=0; (x < objetOrdenne.length && x <= 10); x++){        
+        for(let utilisateur in resultat){
+          
+          objVictoires[utilisateur] = resultat[utilisateur][0];
+        }
+
+        //on ordenne les resultats en mode decroisant, alors on aura le premier dans la premier place
+        let objetOrdenne = Object.keys(objVictoires).sort(function(a,b){return objVictoires[b]-objVictoires[a]});
+        
+        /**il afichera les meilleurs 10 utilisatuers */           
+        for (let x=0; (x < objetOrdenne.length && x <= 10); x++){  
+            
             let conteneurDiv= document.createElement("div");
-            if(x==0){
-
-              conteneurDiv.appendChild(ajouter_p("<label>1er</label> <i class=\"fas fa-trophy\" aria-hidden=\"true\"></i>  "+ objetOrdenne[x]));
-              
+            if( x == 0){
+              conteneurDiv.appendChild(ajouter_p("<label>1er</label> <i class=\"fas fa-trophy\" aria-hidden=\"true\"></i>  "+ objetOrdenne[x]));              
             }else{
-
-              conteneurDiv.appendChild(ajouter_p("<label>"+(x+1)+" - </label> "+ objetOrdenne[x]));
-              
+              conteneurDiv.appendChild(ajouter_p("<label>"+(x+1)+" - </label> "+ objetOrdenne[x]));              
             }
-            conteneurDiv.appendChild(ajouter_p(resultat[objetOrdenne[x]]+" points")); 
 
+            conteneurDiv.appendChild(ajouter_p(resultat[objetOrdenne[x]][0]+" victoires")); 
             divConteneur.appendChild(conteneurDiv);
 
         }
+
     }
 
     //bouton pour reinitialiser les scores, les points
@@ -286,10 +289,11 @@ if (pageActuel == "game.html") {
 
       //add the points winner
       //ajouter les points au gagnant pour les utiliser dans la page resultat      
-      calculeResultat(rules.name);
+      calculeResultat(rules.name,null);
 
     } else {
       printWinner("You loose");
+      calculeResultat(null,rules.name);
     }
   }
 
@@ -393,34 +397,77 @@ if (pageActuel == "game.html") {
 }
 // end of Min-max function
 
-/*** */
-function calculeResultat(gagnant){
+/******** calcule gagnant avec defaites et victoires*********/
+function calculeResultat(gagnant, perdant){
+ 
+    let resultatGame=true;
+    let nom="";
+
+    if(gagnant != null){
+        nom=gagnant;
+    }else{
+        nom=perdant;
+        resultatGame=false;
+    }
     
     let resultat = {};
-    
-    //on verifie si resultat est vide
-    if(localStorage.getItem('resultat') != '' ){
+    let calculResultat =[];
+    let resultatVictoire=0;
+    let resultatDefaites=0;
 
-      //on recupere le score des utilisateurs
-      resultat = JSON.parse(localStorage.getItem('resultat'));
+    /*on verifie si le resultat existe dans localstorage */
+    if(localStorage.getItem('resultat')) {
+
+        //on verifie si resultat est vide
+        if(localStorage.getItem('resultat') != '' ){
+
+          //on recupere le score des utilisateurs
+          resultat = JSON.parse(localStorage.getItem('resultat'));
+        }
+    }else{      
+        //console.log('la variable resultat n existe pas');
     }
+        
     
-    
-    let calculResultat=0;
     //verifie si le gagnant existe deja
-    if(resultat[gagnant]){
-        calculResultat=resultat[gagnant] + 1000;
+    if(resultat[nom]){
+
+        let resultatHistorique = (resultat[nom])?resultat[nom]:[0,0];
+        //console.log(resultatHistorique);
+
+        /* recupere les victoires et defaits */
+        resultatVictoire = parseInt(resultatHistorique[0]);
+        resultatDefaites = parseInt(resultatHistorique[1]);
+        
+        console.log('joueur existante , resultatGame gagnat ?', resultatGame)
+        if(resultatGame){
+          resultatVictoire++;
+        }else{
+          resultatDefaites++;
+        }
+
     }else{
-      calculResultat=1000;
+     // console.log('nouveau joueur, resultatGame gagnat ?', resultatGame)
+      if(resultatGame){
+        resultatVictoire=1;
+      }else{
+        resultatDefaites=1;
+      }
+      
     }
+  
+    calculResultat = [resultatVictoire,resultatDefaites];
+   
+
     //on enregistre le resultat du gagnant dans l'objet
-    resultat[gagnant] =calculResultat;
-    console.log(resultat);
+    resultat[nom] =calculResultat;
+    console.log('resultat ', resultat);
 
     //on enregistre les scores
     localStorage.setItem('resultat', JSON.stringify(resultat));    
 
 }
+
 
 function ajouter_bouton(quoi){
 
